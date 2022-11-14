@@ -1,0 +1,15 @@
+Alphabet = ["a","b","c","d","e","f","g",'h','i','j','k','l','m','o','p','q','r','s','t','u','v','w','x','y','z']
+CapsAlpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+MorseAlpha = ['._',"_...","_._.","_..",".",".._.","__.","....","..",".___","_._","._..","__","_.","___",".__.","__._","._.","...","_",".._","..._",".__","_.._","_.__","__.."]
+message = input("enter the message you want to translate: ")
+morse = ""
+for i in range(len(message)):
+    for j in range(26):
+        if message[i] == Alphabet[j-1]:
+            morse += MorseAlpha[j-1]
+            break
+        elif message[i] == " ":
+            morse += " "
+
+
+print(morse)
