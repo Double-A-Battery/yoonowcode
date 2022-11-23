@@ -1,0 +1,48 @@
+Alphabet = ["a","b","c","d","e","f","g",'h','i','j','k','l','m','o','p','q','r','s','t','u','v','w','x','y','z']
+CapsAlpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+MorseAlpha = ['._',"_...","_._.","_..",".",".._.","__.","....","..",".___","_._","._..","__","_.","___",".__.","__._","._.","...","_",".._","..._",".__","_.._","_.__","__.."]
+message = str(input("enter the message you want to translate: "))
+TransType = int(input("To translate to MORSE: input 1\nTo translate to ALPHABET: input 2\n "))
+morse = ""
+holdlist = []
+Placehold = ""
+choice = input
+if TransType == 1:
+    for i in range(len(message)):
+        for j in range(26):
+            if message[i] == Alphabet[j-1]:
+                morse += MorseAlpha[j-1]
+                morse += " " #1 space between leters
+                break
+            if message[i] == CapsAlpha[j-1]:
+                morse += MorseAlpha[j-1]
+                morse += " " #1 space between leters
+                break
+            elif message[i] == " " and j == 25:
+               morse += "   " # TAB between words
+
+
+    print(morse)
+
+#prototype morse to alphabet code
+if TransType == 2:
+    for i in range (len(message)):
+        try:
+           if message[i] == " " and message[i+1] != " ":
+               holdlist.append(Placehold)
+               Placehold = ""
+        except:
+            A = "B"
+        else:
+            A = "G"
+
+        try:
+            if message[i] == " " and message[i+1] == " ":
+                holdlist.append("=")
+            else:
+                Placehold+= message[i]
+        except:
+            A = "J"
+        else:
+            A = "A"
+print(holdlist)
