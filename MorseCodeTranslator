@@ -3,13 +3,19 @@ CapsAlpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'O
 MorseAlpha = ['._',"_...","_._.","_..",".",".._.","__.","....","..",".___","_._","._..","__","_.","___",".__.","__._","._.","...","_",".._","..._",".__","_.._","_.__","__.."]
 message = input("enter the message you want to translate: ")
 morse = ""
+holdlist = []
+Placehold = ""
+choice = input
 for i in range(len(message)):
     for j in range(26):
         if message[i] == Alphabet[j-1]:
             morse += MorseAlpha[j-1]
             break
-        elif message[i] == " ":
-            morse += " "
-
+        if message[i] == CapsAlpha[j-1]:
+            morse += MorseAlpha[j-1]
+            break
+        elif message[i] == " " and j == 25:
+            morse += "  " # TAB between words
+    morse += " " #1 space between leters
 
 print(morse)
