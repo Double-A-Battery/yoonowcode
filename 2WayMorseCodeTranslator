@@ -45,4 +45,16 @@ if TransType == 2:
             A = "J"
         else:
             A = "A"
-print(holdlist)
+    print(holdlist)
+    print(len(holdlist))
+    for i in range(len(holdlist)):
+        print(holdlist[i])
+        for j in range(26):
+            if holdlist[i] == MorseAlpha[j]:
+                morse += Alphabet[j]
+                print("holdlist", i, "was equal to morse alpha", j)
+                
+            #elif message[i] == "=" and j == 25:
+            #   morse += " "
+    print(morse)
+
