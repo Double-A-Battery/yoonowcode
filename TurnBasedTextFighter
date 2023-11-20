@@ -1,0 +1,95 @@
+#Just realised i didnt really follow the task but its close and i think the code is pretty advanced anyway so might as well
+import random
+class Champion:
+    def __init__(self,name,ap,asp,hp):
+        self.name = name
+        self.ap = ap
+        self.asp = asp
+        self.hp = hp
+        self.points = 15
+
+    def description(self):
+        print(f"{self.name}: \n{self.ap} attack power \n{self.asp} attack speed \n{self.hp} health")
+
+    def hpChange(self,SpendPoint):
+        self.hp = self.hp + SpendPoint*100
+    def apChange(self,SpendPoint):
+        self.ap = self.ap + SpendPoint*2
+    def aspChange(self,SpendPoint):
+        self.asp = self.asp + SpendPoint*1.5
+    def shop(self,wl,turn):
+        if wl == True:
+            self.points = self.points + 5*turn
+            max = self.points
+            while self.points > 0:
+                Upgradetype = input("What do you want to upgrade? select one by typing down below: \nhp: health \nap: attack power \nasp: attack speed")
+                amount = int(input(f"how many points do you want to upgrade by? {self.points}/{max} remaining"))
+                if self.points-amount < 0:
+                    print("sorry, you dont have that many points")
+                elif self.points-amount >= 0:
+                    if Upgradetype == "hp":
+                        self.hpChange(amount)
+                        self.points = self.points-amount
+
+                    elif Upgradetype == "ap":
+                        self.apChange(amount)
+                        self.points = self.points-amount
+
+                    elif Upgradetype == "asp":
+                        self.aspChange(amount)
+                        self.points = self.points-amount
+
+                    else:
+                        print("please enter a valid Upgrade type")
+        elif wl == False:
+            print("you lose")
+
+    def Fight(self,enemy,turn):
+        enemyhp = enemy.hp
+        playerhp = self.hp
+        while enemyhp > 0 and playerhp > 0:
+            Pchance = random.uniform(0,1)
+            Echance = random.uniform(0,1)
+            dmg = round(self.ap*self.asp*Pchance,2)
+            Edmg = round(enemy.ap*enemy.asp*Echance,2)
+            playerhp = round(playerhp-Edmg,2)
+            enemyhp = round(enemyhp-dmg,2)
+            print(f"{self.name} hp: {playerhp}")
+            print(f"{enemy.name} hp: {enemyhp}")
+            pause = input("press enter to continue fight")
+        if enemyhp < 0 and playerhp < 0:
+            wl = bool(random.getrandbits(1))
+            self.shop(wl,turn)
+            return wl
+        elif playerhp > enemyhp:
+            wl = True
+            self.shop(wl,turn)
+            return wl
+        else:
+            wl = False
+            self.shop(wl,turn)
+            return wl
+
+print("welcome to (generic game title)")
+name = input("name your champion: ")
+player = Champion(name,2,1,100)
+player.shop(True,1)
+player.description()
+pause = input("press enter to start the battle")
+Lux = Champion("Lux",10,6,1500)
+Warwick = Champion("Warwick",4,10,2100)
+Morgana = Champion("Morgana",9,5,1900)
+enemies = [Lux,Warwick,Morgana]
+loss = False
+for i in range(len(enemies)):
+    choice = random.choice(enemies)
+    choice.hpChange(i*2)
+    choice.apChange(i*2)
+    choice.aspChange(i*2)
+    turn = (i+1)
+    if player.Fight(choice,turn) == False:
+        loss = True
+        break
+    enemies.remove(choice)
+if loss == False:
+    print("You are the apex champion")
